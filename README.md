@@ -1,4 +1,6 @@
 # Portfolio2
+portfolio : Udacity examples
 
-prototype : 프로젝트 초기설정 값 
-randomQ : 퀴즈 코스 사이트
+prototype : version of making application / prototype1 initialization > prototype2 htmlsite > prototype3 encapsulating javascript 
+
+randomQ : randaom quize site
