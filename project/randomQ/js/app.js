@@ -1,40 +1,71 @@
-project.data.header = function(){
-         "user1":["name":"william", "subname":"bill", "mainimage":"http://via.placeholder.com/1820x400"]         
-}          
-                                                       
-project.display.header = function(){
-    for (project in project.data.header){
-        var user1
-        
-        
-        var HTMLheadername ="<div class="row">
-                <div class="col-md-6">
-                    <img src="image/Logo.jpg" class="img-responsive logo" alt="">
-                </div>
-                <div class="col-md-6 text-right">
-                    <h1 class="supertitle text-uppercase">%data1%willim</h1>"
-        var HTMLheadersubname ="<h2 class="supertitle text-uppercase">%data2%bill</h2>
-                </div>
-            </div>
-            <div class="row">
-                <hr>
-            </div>"
-       var HTMLheadermainimage ="<div class="row">
-                <div class="col-md-12">
-                    <img src="%data3%http://via.placeholder.com/1820x400" class="img-responsive placeholdimg" alt="">
-                </div>
-            </div> 
-    
-    var formattedHeaderName = HTMLheadername.replace("%data1%", "project.data.header.user1[project].name");
-    var formattedHeaderSubname = HTMLheadersubname.replace("%data2%", "project.data.header.user1[project].subname")
-    var formattedHeaderMainImage = HTMLheadermainimage.replace("%data3%", "project.data.header.user1[project].mainimage")
-                                    
-    $(.header).append(formattedHeaderMainImage);
-    $(.header).append(formattedHeaderSubname);
-    $(.header).append(formattedHeaderName);
-    
-    }                     
-};
+//var edu = {
+//    "school": [
+//        {
+//            "name": "Nova Southeastern University",
+//            "city": "Seoul",
+//            "degree": "CS",
+//            "dates": 2013,
+//            "url": "https://example.com"
+//        },
+//        {
+//            "name": "Eckerd College",
+//            "city": "Seoul",
+//            "degree": "CS",
+//            "dates": 2013,
+//            "url": "http://example.com"
+//        }
+//    ],
+//    "onlineCourses": [
+//        {
+//            "title": "Javascirpt Crash Course",
+//            "school": "Udacity",
+//            "dates": 2014,
+//            "url": "http://example.com"
+//        }
+//    ]
+//};
 
-projects.data.header();
-project.display.header(); 
+
+(function (window) {
+	'use strict';
+    
+    
+	// Your starting point. Enjoy the ride!
+    var user = {
+        "name": "william",
+        "subName": "bill",
+        "logPic": "image/Logo.jpg",
+        "headerImg": "http://via.placeholder.com/1820x400",
+        
+        "contact": {
+            "mobile": "01049055202",
+            "email": "tuntunkimpo@naver.com"
+        },
+        "skills" : [
+            "awesomeness", "programming", "teaching", "JS"
+        ],
+        "welcomeMessage" : "Thanks"
+    };
+
+var projects = {};
+    
+projects.header = function(){
+        var HTMLheaderName = '<h1 id="name" class="supertitle text-uppercase"><strong>%data%</strong></h1>';
+        var HTMLheaderSubName = '<h2 id="subname" class="supertitle text-uppercase">%data%</h2>';
+        var HTMLheaderLogo = '<img src="%data%" class="img-responsive logo" alt="logo image">';
+        var HTMLheaderImg = '<img src="%data%" class="img-responsive placeholdimg" alt="header image">';
+    
+        // var forMattedName = HTMLheaderName.replace("%data%", edu.school[0].name);
+        var forMattedName = HTMLheaderName.replace("%data%", user.name);
+        var forMattedSubName = HTMLheaderSubName.replace("%data%", user.subName);
+        var forMattedLogo = HTMLheaderLogo.replace("%data%", user.logPic);
+        var forMattedHeaderImg = HTMLheaderImg.replace("%data%", user.headerImg);
+
+        $('#header').append(forMattedName);
+        $('#header').append(forMattedSubName);
+        $('#logo').append(forMattedLogo);
+        $('#headerimg').append(forMattedHeaderImg);
+    };
+projects.header();
+
+})(window);
