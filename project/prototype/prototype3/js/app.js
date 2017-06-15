@@ -1,5 +1,34 @@
+//var edu = {
+//    "school": [
+//        {
+//            "name": "Nova Southeastern University",
+//            "city": "Seoul",
+//            "degree": "CS",
+//            "dates": 2013,
+//            "url": "https://example.com"
+//        },
+//        {
+//            "name": "Eckerd College",
+//            "city": "Seoul",
+//            "degree": "CS",
+//            "dates": 2013,
+//            "url": "http://example.com"
+//        }
+//    ],
+//    "onlineCourses": [
+//        {
+//            "title": "Javascirpt Crash Course",
+//            "school": "Udacity",
+//            "dates": 2014,
+//            "url": "http://example.com"
+//        }
+//    ]
+//};
+
+
 (function (window) {
 	'use strict';
+    
     
 	// Your starting point. Enjoy the ride!
     var user = {
