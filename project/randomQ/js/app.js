@@ -79,6 +79,11 @@ var quz = {
             "booksImg" : "http://via.placeholder.com/600x150",
             "title" : "Q3",
             "description" : "http://www.naver.com" 
+        },
+        { 
+            "booksImg" : "http://via.placeholder.com/600x150",
+            "title" : "Q3",
+            "description" : "http://www.naver.com" 
         }
     ]
 };
