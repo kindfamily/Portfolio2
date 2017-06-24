@@ -22,24 +22,24 @@ $result = mysqli_query($conn, "SELECT * FROM quiz");
     }
     ?>
     
-     	<div id="timezones">timezones</div>
+     	<div id="timezones">timezonesdiv <div></div></div>
         <div id="execute">execute</div>
       <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
       
       <script>
-        $('#execute').click(function(){
+	$(document).ready(function() {
+		all();
+	});
+
+// 
+	function all() {          
         $.ajax({
             url:'./read.php',
             dataType:'json',
-            success:function(data){
-                    var str = '';
-                    for(var name in data){
-                        str += '<div>'+data[title]+'</div>';
-                    }
-                    $('#timezones').append('<div>'+str+'</div>');
+            success:function(data){ $('#timezones').append('<div>'+data+'</div>');
                 }
             })
-        })
+    }
 	</script>
 </body>
 </html>
