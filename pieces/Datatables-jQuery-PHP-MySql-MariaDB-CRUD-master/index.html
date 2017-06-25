@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ko">
 <head>
 	<meta charset="UTF-8">
 	<title>Código Wolf</title>
@@ -14,7 +14,8 @@
 <body>
 	<div class="row fondo">
 		<div class="col-sm-12 col-md-12 col-lg-12">
-			<h1 class="text-center text-uppercase">DataTables - Ajax - PHP - MySql / MariaDB</h1>
+			<h1 class="text-center text-uppercase"> 가망회원 모음
+			DataTables - Ajax - PHP - MySql / MariaDB</h1>
 		</div>
 	</div>
 	
@@ -23,26 +24,33 @@
 			<form class="form-horizontal" action="" method="POST">
 				<div class="form-group">
 					<h3 class="col-sm-offset-2 col-sm-8 text-center">					
-					Formulario de Registro de Usuarios</h3>
+					회원정보</h3>
 				</div>
 				<input type="hidden" id="idusuario" name="idusuario" value="0">
 				<input type="hidden" id="opcion" name="opcion" value="registrar">
 				<div class="form-group">
-					<label for="nombre" class="col-sm-2 control-label">Nombres</label>
+					<label for="nombre" class="col-sm-2 control-label">이름</label>
 					<div class="col-sm-8"><input id="nombre" name="nombre" type="text" class="form-control"  autofocus></div>				
 				</div>
 				<div class="form-group">
-					<label for="apellidos" class="col-sm-2 control-label">Apellidos</label>
-					<div class="col-sm-8"><input id="apellidos" name="apellidos" type="text" class="form-control" ></div>
+					<label for="apellidos" class="col-sm-2 control-label">메모</label>
+					<div class="col-sm-8">
+            		<textarea id="apellidos" name="apellidos" class="form-control" cols="30" rows="10"></textarea>
+<!--					
+					<input id="apellidos" name="apellidos" type="textarea" class="form-control" > 
+-->
+					</div>
 				</div>
 				<div class="form-group">
-					<label for="apellidos" class="col-sm-2 control-label">Dni</label>
-					<div class="col-sm-8"><input id="dni" name="dni" type="text" class="form-control" maxlength="8" ></div>
+					<label for="apellidos" class="col-sm-2 control-label">전화번호</label>
+					<div class="col-sm-8">
+	                   <input id="dni" name="dni" type="text" class="form-control" maxlength="15"> 
+					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-8">
-						<input id="" type="submit" class="btn btn-primary" value="Guardar">
-						<input id="btn_listar" type="button" class="btn btn-primary" value="Listar">
+						<input id="" type="submit" class="btn btn-primary" value="수정">
+						<input id="btn_listar" type="button" class="btn btn-primary" value="취소">
 					</div>
 				</div>
 			</form>
@@ -61,9 +69,9 @@
 				<table id="dt_cliente" class="table table-bordered table-hover" cellspacing="0" width="100%">
 					<thead>
 						<tr>								
-							<th>Nombre</th>
-							<th>Apellidos</th>
-							<th>Dni</th>
+							<th>Name</th>
+							<th>메모</th>
+							<th>연락처</th>
 							<th></th>											
 						</tr>
 					</thead>					
@@ -125,6 +133,7 @@
 
 		var guardar = function(){
 			$("form").on("submit", function(e){
+                // preventDefault Prevent a link from opening the URL:
 				e.preventDefault();
 				var frm = $(this).serialize();
 				$.ajax({
@@ -148,6 +157,7 @@
 				$.ajax({
 					method:"POST",
 					url: "guardar.php",
+                    // 서버로 data를 보낼때 data: 를 사용한다
 					data: {"idusuario": idusuario, "opcion": opcion}
 				}).done( function( info ){
 					var json_info = JSON.parse( info );
@@ -283,7 +293,7 @@
 		    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
 		    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
 		    "sInfoPostFix":    "",
-		    "sSearch":         "Buscar:",
+		    "sSearch":         "검색:",
 		    "sUrl":            "",
 		    "sInfoThousands":  ",",
 		    "sLoadingRecords": "Cargando...",
