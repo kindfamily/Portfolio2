@@ -2,10 +2,11 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>Código Wolf</title>
+	<title>daliy todolist</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
 	<link rel="stylesheet" href="css/estilos.css">
+	
 	<!-- Buttons DataTables -->
 	<link rel="stylesheet" href="css/buttons.bootstrap.min.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -14,8 +15,8 @@
 <body>
 	<div class="row fondo">
 		<div class="col-sm-12 col-md-12 col-lg-12">
-			<h1 class="text-center text-uppercase"> 가망회원 모음
-			DataTables - Ajax - PHP - MySql / MariaDB</h1>
+			<h1 class="text-center text-uppercase"> 지사운영 워크플로워/가망회원todolist (
+			DataTables - Ajax - PHP - MySql / MariaDB)</h1>
 		</div>
 	</div>
 	
@@ -35,10 +36,8 @@
 				<div class="form-group">
 					<label for="apellidos" class="col-sm-2 control-label">메모</label>
 					<div class="col-sm-8">
-            		<textarea id="apellidos" name="apellidos" class="form-control" cols="30" rows="10"></textarea>
-<!--					
-					<input id="apellidos" name="apellidos" type="textarea" class="form-control" > 
--->
+            		<textarea id="apellidos" name="apellidos" class="form-control" ></textarea>
+<!--					    <input id="apellidos" name="apellidos" type="textarea" class="form-control" > -->
 					</div>
 				</div>
 				<div class="form-group">
@@ -68,8 +67,9 @@
 			<div class="table-responsive col-sm-12">		
 				<table id="dt_cliente" class="table table-bordered table-hover" cellspacing="0" width="100%">
 					<thead>
-						<tr>								
-							<th>Name</th>
+						<tr>
+                        <!-- 메인 페이지 최상위 컬럼	-->
+							<th>이름</th>
 							<th>메모</th>
 							<th>연락처</th>
 							<th></th>											
@@ -83,20 +83,21 @@
 		<form id="frmEliminarUsuario" action="" method="POST">
 			<input type="hidden" id="idusuario" name="idusuario" value="">
 			<input type="hidden" id="opcion" name="opcion" value="eliminar">
+			
 			<!-- Modal -->
 			<div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modalEliminarLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="modalEliminarLabel">Eliminar Usuario</h4>
+							<h4 class="modal-title" id="modalEliminarLabel">사용자 삭제</h4>
 						</div>
 						<div class="modal-body">							
-							¿Está seguro de eliminar al usuario?<strong data-name=""></strong>
+							정말 삭제 하시겠습니까?<strong data-name=""></strong>
 						</div>
 						<div class="modal-footer">
-							<button type="button" id="eliminar-usuario" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+							<button type="button" id="eliminar-usuario" class="btn btn-primary" data-dismiss="modal">삭제</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 						</div>
 					</div>
 				</div>
@@ -104,7 +105,7 @@
 			<!-- Modal -->
 		</form>
 	</div>
-	
+    <!-- 자바스크립트 라이브러리들 -->
 	<script src="js/jquery-1.12.3.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.dataTables.min.js"></script>
@@ -122,8 +123,11 @@
 
 	<script>		
 		$(document).on("ready", function(){
-			listar();
+			// listar = 목록
+            listar();
+            // guardar = 저장
 			guardar();
+            // eliminar = 제거
 			eliminar();
 		});
 
@@ -136,6 +140,7 @@
                 // preventDefault Prevent a link from opening the URL:
 				e.preventDefault();
 				var frm = $(this).serialize();
+                // https://www.w3schools.com/jquery/tryit.asp?filename=tryjquery_ajax_serialize
 				$.ajax({
 					method: "POST",
 					url: "guardar.php",
@@ -143,7 +148,9 @@
 				}).done( function( info ){
 					console.log( info );
 					var json_info = JSON.parse( info );
-					mostrar_mensaje( json_info );
+                    // mostrar_mensaje = 표시 메시지
+					mostrar_mensaje( mostrar_mensaje );
+                    // limpiar_datos == 깨끗한 데이터
 					limpiar_datos();
 					listar();
 				});
@@ -151,15 +158,17 @@
 		}
 
 		var eliminar = function(){
+            // eliminar= 제거, usuario = 사용자
 			$("#eliminar-usuario").on("click", function(){
 				var idusuario = $("#frmEliminarUsuario #idusuario").val(),
 					opcion = $("#frmEliminarUsuario #opcion").val();
 				$.ajax({
 					method:"POST",
 					url: "guardar.php",
-                    // 서버로 data를 보낼때 data: 를 사용한다
+                    // 서버로 data를 보낼때 data: 를 사용한다 idusuario = 사용자 아이디, opcion= 선택권
 					data: {"idusuario": idusuario, "opcion": opcion}
-				}).done( function( info ){
+				    // .done(function(){ console.log("요청 성공시 호출") })
+                }).done( function( info ){
 					var json_info = JSON.parse( info );
 					mostrar_mensaje( json_info );
 					limpiar_datos();
@@ -170,20 +179,21 @@
 
 		var mostrar_mensaje = function( informacion ){
 			var texto = "", color = "";
+            // informacion = 정보 , respuesta = 대답
 			if( informacion.respuesta == "BIEN" ){
-					texto = "<strong>Bien!</strong> Se han guardado los cambios correctamente.";
+					texto = "<strong>음!</strong> 변경이 제대로 저장되었습니다.";
 					color = "#379911";
 			}else if( informacion.respuesta == "ERROR"){
-					texto = "<strong>Error</strong>, no se ejecutó la consulta.";
+					texto = "<strong>Error</strong>, 쿼리가 실행되지 않았습니다.";
 					color = "#C9302C";
 			}else if( informacion.respuesta == "EXISTE" ){
-					texto = "<strong>Información!</strong> el usuario ya existe.";
+					texto = "<strong>Información!</strong> 사용자가 이미 있습니다.";
 					color = "#5b94c5";
 			}else if( informacion.respuesta == "VACIO" ){
-					texto = "<strong>Advertencia!</strong> debe llenar todos los campos solicitados.";
+					texto = "<strong>경고!</strong> 당신은 모든 필수 필드를 완료해야합니다.";
 					color = "#ddb11d";
 			}else if( informacion.respuesta == "OPCION_VACIA" ){
-					texto = "<strong>Advertencia!</strong> la opción no existe o esta vacia, recargar la página.";
+					texto = "<strong>경고!</strong> 옵션이 페이지를 다시 로드, 없거나 비어";
 					color = "#ddb11d";
 			}
 
@@ -193,19 +203,29 @@
 					$(this).fadeIn(3000);
 			});			
 		}
-
+        
+        // limpiar_datos = 깨끗한 정보 / 정보 입력값 함수
 		var limpiar_datos = function(){
+            // opcion = 선택권, registrar = 등록
 			$("#opcion").val("registrar");
+            // idusuario = 사용자id 
 			$("#idusuario").val("");
+            // nombre = 이름
 			$("#nombre").val("").focus();
+            // apellidos = 성씨
 			$("#apellidos").val("");
+            // dni = 일( day )
 			$("#dni").val("");
 		}
-
+        
+        // 리스트 뿌려주는 함수
 		var listar = function(){
+                // cuadro2 수정 페이지 , cuadro1 가망회원 출력 페이지 
 				$("#cuadro2").slideUp("slow");
 				$("#cuadro1").slideDown("slow");
+                // dt_cliente 는 회원 목록 뿌려주는 div 
 			var table = $("#dt_cliente").DataTable({
+                // .DataTable은 DataTable plug in을 이용해 배열을 불러오는 방법 https://datatables.net/manual/ajax
 				//"processing": true,
 				//"serverSide": true,
 				"destroy":true,
@@ -217,7 +237,8 @@
 					{"data":"nombre"},
 					{"data":"apellidos"},
 					{"data":"dni"},
-					{"defaultContent": "<button type='button' class='editar btn btn-primary'><i class='fa fa-pencil-square-o'></i></button>	<button type='button' class='eliminar btn btn-danger' data-toggle='modal' data-target='#modalEliminar' ><i class='fa fa-trash-o'></i></button>"}	
+					{"defaultContent": "<button type='button' class='editar btn btn-primary'><i class='fa fa-pencil-square-o'></i></button>	<button type='button' class='eliminar btn btn-danger' data-toggle='modal' data-target='#modalEliminar' ><i class='fa fa-trash-o'></i></button>"}
+                    // i class='fa fa-pencil-square-o'></i>는 폰트 사이트 링크 http://fontawesome.io/icon/pencil-square-o/
 				],
 				"language": idioma_espanol,
 				"dom": "<'row'<'form-inline' <'col-sm-offset-5'B>>>"
@@ -262,7 +283,8 @@
 			$("#cuadro2").slideDown("slow");
 			$("#cuadro1").slideUp("slow");
 		}
-
+        
+        // obtener = 수 , editar = 편집
 		var obtener_data_editar = function(tbody, table){
 			$(tbody).on("click", "button.editar", function(){
 				var data = table.row( $(this).parents("tr") ).data();
@@ -300,8 +322,8 @@
 		    "oPaginate": {
 		        "sFirst":    "Primero",
 		        "sLast":     "Último",
-		        "sNext":     "Siguiente",
-		        "sPrevious": "Anterior"
+		        "sNext":     "다음",
+		        "sPrevious": "이전"
 		    },
 		    "oAria": {
 		        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
