@@ -5,7 +5,7 @@
 	$resultado = mysqli_query($conexion, $query);
 	
 	if( !$resultado )
-		die("Error, no se ejecutó la consulta.");
+		die("오류, 쿼리가 실행되지 않았습니다.");
 	else{
 		$array["data"] = [];//devuelve un arreglo vacio por si no hay registros en la base de datos
 		while ( $data = mysqli_fetch_assoc($resultado)){

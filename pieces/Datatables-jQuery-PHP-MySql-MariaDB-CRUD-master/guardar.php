@@ -1,4 +1,5 @@
 <?php 
+// guardar = 저장
 	include("conexion.php");
 
 	$idusuario = $_POST["idusuario"];	

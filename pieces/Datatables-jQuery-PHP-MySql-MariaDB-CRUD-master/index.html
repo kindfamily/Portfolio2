@@ -21,6 +21,7 @@
 	</div>
 	
 	<div class="row">
+		<!-- 수정 페이지 -->
 		<div id="cuadro2" class="col-sm-12 col-md-12 col-lg-12 ocultar">
 			<form class="form-horizontal" action="" method="POST">
 				<div class="form-group">
@@ -121,7 +122,8 @@
 	<!--Librerias para botones de exportación-->
 	<script src="js/buttons.html5.min.js"></script>
 
-	<script>		
+	<script>
+		// 페이지가 로드 되었을때 리스트, 저장하기, 제거하기 함수 준비 시키기
 		$(document).on("ready", function(){
 			// listar = 목록
             listar();
@@ -131,10 +133,12 @@
 			eliminar();
 		});
 
+		// btn_listar 수정페이지에 수정 버튼 id 값 을 눌렀을때 리스트 뿌려주는 함수를 불러라
 		$("#btn_listar").on("click", function(){
 			listar();
 		});
-
+		
+		// guardar = 저장 하는 함수
 		var guardar = function(){
 			$("form").on("submit", function(e){
                 // preventDefault Prevent a link from opening the URL:
@@ -157,6 +161,7 @@
 			});
 		}
 
+		// eliminar = 제거 하는 함수
 		var eliminar = function(){
             // eliminar= 제거, usuario = 사용자
 			$("#eliminar-usuario").on("click", function(){
@@ -177,6 +182,7 @@
 			});
 		}
 
+		// mostrar = 표시 mensaje = 메시지 메시지 표시하는 함수 
 		var mostrar_mensaje = function( informacion ){
 			var texto = "", color = "";
             // informacion = 정보 , respuesta = 대답
@@ -204,7 +210,7 @@
 			});			
 		}
         
-        // limpiar_datos = 깨끗한 정보 / 정보 입력값 함수
+        // limpiar_datos = 깨끗한 정보 / input 박스에 정보 입력한 값 함수
 		var limpiar_datos = function(){
             // opcion = 선택권, registrar = 등록
 			$("#opcion").val("registrar");
@@ -220,7 +226,7 @@
         
         // 리스트 뿌려주는 함수
 		var listar = function(){
-                // cuadro2 수정 페이지 , cuadro1 가망회원 출력 페이지 
+                // cuadro2 수정 페이지 , cuadro1 회원정보 출력 페이지 
 				$("#cuadro2").slideUp("slow");
 				$("#cuadro1").slideDown("slow");
                 // dt_cliente 는 회원 목록 뿌려주는 div 
@@ -278,16 +284,18 @@
 			obtener_id_eliminar("#dt_cliente tbody", table);
 		}
 
+		// agregar = 추가 nuevo = 새로운 usuario = 사용자  새로운 사용자 추가하는 함수
 		var agregar_nuevo_usuario = function(){
 			limpiar_datos();
 			$("#cuadro2").slideDown("slow");
 			$("#cuadro1").slideUp("slow");
 		}
         
-        // obtener = 수 , editar = 편집
+        // obtener = 수 , editar = 편집 데이터의 수를 편집하는 함수
 		var obtener_data_editar = function(tbody, table){
 			$(tbody).on("click", "button.editar", function(){
-				var data = table.row( $(this).parents("tr") ).data();
+				var data = table.row( $(this).parents("tr") ).data(); 
+				// idusuario = 사용자 id nombre = 이름 apellidos = 성씨 dni = 일 opcion = 선택권
 				var idusuario = $("#idusuario").val( data.idusuario ),
 						nombre = $("#nombre").val( data.nombre ),
 						apellidos = $("#apellidos").val( data.apellidos ),
@@ -299,6 +307,7 @@
 			});
 		}
 
+		// obtener = 수 eliminar = 제거 id 제거 함수 
 		var obtener_id_eliminar = function(tbody, table){
 			$(tbody).on("click", "button.eliminar", function(){
 				var data = table.row( $(this).parents("tr") ).data();
@@ -306,6 +315,8 @@
 			});
 		}
 
+		// idioma = 언어 espanol = 스페인어
+		// 페이지에 출력되는 버튼들의 객체 모음
 		var idioma_espanol = {
 		    "sProcessing":     "Procesando...",
 		    "sLengthMenu":     "Mostrar _MENU_ registros",
